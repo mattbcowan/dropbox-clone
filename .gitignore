@@ -26,7 +26,3 @@ someOtherfoler/
 *.rar
 *.tar
 *.zip
-
-# Ignore nodemodules #
-######################
-node_modules/
