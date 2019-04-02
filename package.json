@@ -1,0 +1,22 @@
+{
+  "name": "dropbox-clone",
+  "version": "1.0.0",
+  "description": "This is a Dropbox clone for my learning purposes only. This is no way, shape, or form reflects Dropbox as a company.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattbcowan/dropbox-clone.git"
+  },
+  "author": "Matt B Cowan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattbcowan/dropbox-clone/issues"
+  },
+  "homepage": "https://github.com/mattbcowan/dropbox-clone#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
