@@ -11,6 +11,9 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+// Require Notes routes
+require('./app/notes/notesRoute.js')(app);
+
 // Connecting to MongoDB
 mongoose.connect(dbConfig.url, {useNewUrlParser: true})
   .then(() => {
