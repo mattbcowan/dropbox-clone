@@ -11,6 +11,9 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+// View Engine
+app.set('view engine', 'pug')
+
 // Require Notes routes
 require('./app/notes/notesRoute.js')(app);
 
@@ -24,6 +27,6 @@ mongoose.connect(dbConfig.url, {useNewUrlParser: true})
     process.exit();
   });
 
-app.get('/', (req, res) => res.send('This is a dropbox clone'))
+app.get('/', (req, res) => res.render('index', { title: 'Hey', message: 'Hello there!'}))
 
 app.listen(port, () => console.log(`Dropbox clone is listening on port ${port}`))
