@@ -27,6 +27,6 @@ mongoose.connect(dbConfig.url, {useNewUrlParser: true})
     process.exit();
   });
 
-app.get('/', (req, res) => res.render('index', { title: 'Hey', message: 'Hello there!'}))
+app.get('/', (req, res) => res.render('index', { title: 'Dropbox Clone', message: 'This is the landing page.'}))
 
 app.listen(port, () => console.log(`Dropbox clone is listening on port ${port}`))
