@@ -1,6 +1,7 @@
 const express = require('express'),
       router = express.Router(),
-      notes = require('./notesController.js')
+      notes = require('./notesController.js'),
+      Note = require('./notesModel.js')
 
 // Create a new Note
 router.post('/', notes.create);
@@ -8,11 +9,12 @@ router.post('/', notes.create);
 // Retrieve all Notes
 // router.get('/', notes.findAll);
 router.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Notes Page',
-    message: 'Welcome to the notes page!',
-    notes: null,
-    noNotes: 'There are no notes right now.'
+  Note.find({}, (err, allNotes) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('index', {notes: allNotes, title: 'Notes Page', message: 'Welcome to the notes page', noNotes: 'There are no notes right now.'})
+    }
   });
 });
 

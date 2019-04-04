@@ -6,6 +6,6 @@ html
     if notes
       ul
         each note in notes
-          li= note
+          li= note.content
     else
       p= noNotes
