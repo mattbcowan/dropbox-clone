@@ -1,0 +1,10 @@
+html
+  head
+    title= title
+  body
+    h1= message
+    ul
+      each note in ['Note 1', 'Note 2', 'Note 3']
+        li= note
+      else
+        li No notes yet!
