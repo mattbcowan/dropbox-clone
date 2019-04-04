@@ -3,3 +3,9 @@ html
     title= title
   body
     h1= message
+    if notes
+      ul
+        each note in notes
+          li= note
+    else
+      p= noNotes

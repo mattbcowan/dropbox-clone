@@ -7,10 +7,14 @@ router.post('/', notes.create);
 
 // Retrieve all Notes
 // router.get('/', notes.findAll);
-router.get('/', (req, res) => res.render('../app/notes/index', {
-  title: 'Notes Page',
-  message: 'Welcome to the Notes Page!'
-}))
+router.get('/', (req, res) => {
+  res.render('index', {
+    title: 'Notes Page',
+    message: 'Welcome to the notes page!',
+    notes: null,
+    noNotes: 'There are no notes right now.'
+  });
+});
 
 
 // Retrieve a single Note with noteId
