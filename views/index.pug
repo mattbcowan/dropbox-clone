@@ -9,3 +9,8 @@ html
           li= note.content
     else
       p= noNotes
+    fieldset
+      form(action='/notes', method='post')
+        input(name='title', type='text', placeholder='Untitled Note', required='')
+        input(name='content', type='text', placeholder='Enter Note Text', required='')
+        input(type='submit', value='Add Note')
