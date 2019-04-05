@@ -38,22 +38,26 @@ router.get('/', (req, res) => {
 
 
 // Retrieve a single Note with noteId
-// router.get('/:noteId', notes.findOne);
-router.get('/:noteId', (req, res) => {
-  Note.findById(req.params.noteId).exec((err, foundNote) => {
+router.get('/:id', (req, res) => {
+  Note.findById(req.params.id).exec((err, foundNote) => {
     if(err || !foundNote) {
       console.log(err)
       return res.redirect('/notes');
     }
-    console.log(req.params.noteId);
+    console.log(req.params.id);
     res.render('notes/show', {note: foundNote})
   })
 })
 
+// Edit Note
+router.get('/:id/edit', (req, res) => {
+  res.render('notes/edit', {note: req.note})
+})
+
 // Update a Note with noteId
-router.put('/:noteId', notes.update);
+router.put('/:id', notes.update);
 
 // Delete a Note with noteId
-router.delete('/:noteId', notes.delete);
+router.delete('/:id', notes.delete);
 
 module.exports = router;
