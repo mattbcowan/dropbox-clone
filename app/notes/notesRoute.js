@@ -50,11 +50,24 @@ router.get('/:id', (req, res) => {
 
 // Edit Note
 router.get('/:id/edit', (req, res) => {
-  res.render('notes/edit', {note: req.note})
+  Note.findById(req.params.id, (err, note) => {
+    if(err) {
+      console.log(err);
+    }
+    res.render('notes/edit', {note: note})
+  })
 })
 
 // Update a Note with noteId
-router.put('/:id', notes.update);
+// router.put('/:id', notes.update);
+router.put('/:id', (req, res) => {
+  Note.findByIdAndUpdate(req.params.id, {$set: req.body}, (err, note) => {
+    if(err) {
+      console.log(err);
+    }
+    res.redirect('/notes')
+  })
+})
 
 // Delete a Note with noteId
 // router.delete('/:id', notes.delete);

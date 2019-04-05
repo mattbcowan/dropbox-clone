@@ -7,7 +7,7 @@ html
       ul
         each note in notes
           a(href='/notes/' + note._id)
-            li= note.content
+            li= note.title
     else
       p= noNotes
     fieldset

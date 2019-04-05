@@ -1,5 +1,10 @@
 html
   head
-    title= title 
+    title= title
   body
     p= 'this is the edit page'
+    fieldset
+      form(action='/notes/' + note._id + '?_method=PUT', method='post')
+        input(name='title', type='text', value=note.title, required='')
+        input(name='content', type='text', value=note.content, required='')
+        input(type='submit', value='Update Note')
