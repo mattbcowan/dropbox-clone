@@ -1,5 +1,6 @@
 const express = require('express'),
       bodyParser = require('body-parser'),
+      methodOverride = require('method-override'),
       app = express(),
       notesRoute = require('./app/notes/notesRoute'),
       {connectToDatabase} = require('./app/database/database'),
@@ -10,7 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // View Engine
-app.set('view engine', 'pug')
+app.set('view engine', 'pug');
+app.use(methodOverride('_method'));
 
 // Connecting to MongoDB
 connectToDatabase();

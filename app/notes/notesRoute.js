@@ -44,7 +44,6 @@ router.get('/:id', (req, res) => {
       console.log(err)
       return res.redirect('/notes');
     }
-    console.log(req.params.id);
     res.render('notes/show', {note: foundNote})
   })
 })
@@ -58,6 +57,14 @@ router.get('/:id/edit', (req, res) => {
 router.put('/:id', notes.update);
 
 // Delete a Note with noteId
-router.delete('/:id', notes.delete);
+// router.delete('/:id', notes.delete);
+router.delete('/:id', (req, res) => {
+  Note.findByIdAndRemove(req.params.id, (err) => {
+    if(err) {
+      console.log(err)
+    }
+    res.redirect('/notes');
+  });
+});
 
 module.exports = router;
