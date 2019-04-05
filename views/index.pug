@@ -6,9 +6,8 @@ html
     if notes
       ul
         each note in notes
-          li= note.content
-          a(href='/notes') Delete
-          a(href='/notes/' + note.id) Edit
+          a(href='/notes/' + note._id)
+            li= note.content
     else
       p= noNotes
     fieldset
