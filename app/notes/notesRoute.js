@@ -38,7 +38,18 @@ router.get('/', (req, res) => {
 
 
 // Retrieve a single Note with noteId
-router.get('/:noteId', notes.findOne);
+// router.get('/:noteId', notes.findOne);
+router.get('/:noteId', (req, res) => {
+  Note.findById(req.params.id), (err, foundNote) => {
+    if(err || !foundNote) {
+      console.log(err);
+      return res.redirect('/notes');
+    }
+    console.log(foundNote)
+    // Render edit form for a found note
+    res.render('notes/show', {note: foundNote});
+  }
+})
 
 // Update a Note with noteId
 router.put('/:noteId', notes.update);

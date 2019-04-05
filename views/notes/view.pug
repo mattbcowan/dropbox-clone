@@ -1,0 +1,10 @@
+html
+  head
+    title= Edit Note Page 
+  body
+    h1= 'Edit ' + note.title
+    fieldset
+      form(action='/notes', method='post')
+        input(name='title', type='text', value= note.title, required='')
+        input(name='content', type='text', value= note.content, required='')
+        input(type='submit', value='Update Note')
