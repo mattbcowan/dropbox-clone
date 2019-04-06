@@ -3,6 +3,7 @@ const express = require('express'),
       methodOverride = require('method-override'),
       app = express(),
       notesRoute = require('./app/notes/notesRoute'),
+      fileHandlerRoute = require('./app/file_handler/fileHandlerRoute'),
       {connectToDatabase} = require('./app/database/database'),
       port = 3000
 
@@ -19,6 +20,7 @@ connectToDatabase();
 
 // Routes
 app.use('/notes', notesRoute);
+app.use('/upload', fileHandlerRoute);
 
 app.get('/', (req, res) => res.render('index', { title: 'Dropbox Clone', message: 'This is the landing page.'}))
 

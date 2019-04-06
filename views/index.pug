@@ -3,15 +3,6 @@ html
     title= title
   body
     h1= message
-    if notes
-      ul
-        each note in notes
-          a(href='/notes/' + note._id)
-            li= note.title
-    else
-      p= noNotes
-    fieldset
-      form(action='/notes', method='post')
-        input(name='title', type='text', placeholder='Untitled Note', required='')
-        input(name='content', type='text', placeholder='Enter Note Text', required='')
-        input(type='submit', value='Add Note')
+    form(action='/upload', enctype="multipart/form-data", method='POST')
+      input(type='file', name='upload', multiple='')
+      input(type='submit', value='Upload')
