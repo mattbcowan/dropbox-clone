@@ -2,6 +2,7 @@
 node_modules/
 someOtherfoler/
 config/
+app/file_handler/uploads
 
 
 # Compiled source #
