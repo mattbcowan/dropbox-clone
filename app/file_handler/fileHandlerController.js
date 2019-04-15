@@ -25,26 +25,3 @@ exports.create = (req, res) => {
       });
     })
 }
-
-exports.fileUpload = (req, res) => {
-  var form = new formidable.IncomingForm();
-  form.parse(req)
-
-  // Begin file upload
-  form.on('fileBegin', (name, file) => {
-    file.path = __dirname + '/uploads/' + file.name;
-  });
-
-  form.on('file', (name, file) => {
-    var title = file.name,
-        type = file.type,
-        size = file.size,
-        lastModifiedDate = file.lastModifiedDate,
-        newFile = {
-          title: title,
-          type: type,
-          size: size,
-          lastModifiedDate: lastModifiedDate
-        }
-    })
-}
