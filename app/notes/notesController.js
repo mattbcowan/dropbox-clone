@@ -1,4 +1,5 @@
-const Note = require('./notesModel.js');
+const Note = require('./notesModel.js'), 
+      formidable = require('formidable');
 
 // Create and Save a new Note
 exports.create = (req, res) => {

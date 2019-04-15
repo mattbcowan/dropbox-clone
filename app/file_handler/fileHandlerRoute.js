@@ -1,25 +1,28 @@
 const express = require('express'),
       router = express.Router(),
-      formidable = require('formidable');
+      formidable = require('formidable'),
+      fileHandler = require('./fileHandlerController'),
+      FileHandler = require('./fileHandlerModel');
 
 router.get('/', (req, res) => {
-  res.render('index', {title: 'Upload a File', message: 'This is the upload route!'})
+  res.render('index', {
+    title: 'Upload a File',
+    message: 'This is the upload route!'
+  })
 });
 
+// Create a new file upload
 router.post('/', (req, res) => {
-  var form = new formidable.IncomingForm();
-
-  form.parse(req);
-
-  form.on('fileBegin', (name, file) => {
-    file.path = __dirname + '/uploads/' + file.name;
-  });
-
-  form.on('file', (name, file) => {
-    console.log('Uploaded ' + file.name);
+  fileHandler.fileUpload(req, newFile);
+  //console.log('Uploaded ' + file.name);
+  FileHandler.create(newFile, (err, newlyCreated) => {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log(newlyCreated);
+      res.redirect('/upload');
+    }
   })
-
-  res.render('index', {title: 'Upload a File', message: 'You uploaded something!'})
 })
 
 module.exports = router;

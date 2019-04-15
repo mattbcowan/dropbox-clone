@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('index', {
+      res.render('notes/index', {
         notes: allNotes,
         title: 'Notes Page',
         message: 'Welcome to the notes page',
