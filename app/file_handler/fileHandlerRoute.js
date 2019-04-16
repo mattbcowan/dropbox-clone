@@ -62,4 +62,15 @@ router.get('/files', (req, res) => {
   });
 });
 
+// Delete note
+router.delete('/files/:id', (req, res) => {
+  FileHandler.findByIdAndRemove(req.params.id, (err) => {
+    if(err) {
+      console.log(err)
+    }
+    res.redirect('/upload/files');
+  });
+});
+
+
 module.exports = router;

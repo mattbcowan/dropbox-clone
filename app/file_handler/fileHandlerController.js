@@ -38,3 +38,26 @@ exports.findAll = (req, res) => {
       });
     });
 }
+
+// Delete File
+exports.delete = (req, res) => {
+  Note.findByIdAndRemove(req.params._id)
+  .then(file => {
+    if(!file) {
+      return res.status(404).send({
+        message: `File not found with ID ${req.params._id}`
+      });
+    }
+    res.send({ message: `File deleted Successfully`})
+  })
+  .catch(err => {
+    if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+      return res.status(404).send({
+        message: `File not found with ID ${req.params._id}`
+      });
+    }
+    return res.status(500).send({
+      message: `Could not delete file with ID ${req.params._id}`
+    });
+  });
+};
