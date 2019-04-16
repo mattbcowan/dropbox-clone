@@ -25,3 +25,16 @@ exports.create = (req, res) => {
       });
     })
 }
+
+// Find all Files
+exports.findAll = (req, res) => {
+  FileHandler.find()
+    .then(fileHanlder => {
+      res.send(fileHandler)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Could not find files."
+      });
+    });
+}

@@ -46,4 +46,20 @@ router.post('/', (req, res) => {
 
 })
 
+// Find all Files
+// Retrieve all Notes
+router.get('/files', (req, res) => {
+  FileHandler.find({}, (err, allFiles) => {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('./fileHandler/view', {
+        files: allFiles,
+        title: 'My Files',
+        message: 'My Files',
+      })
+    }
+  });
+});
+
 module.exports = router;
