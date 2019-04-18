@@ -1,0 +1,10 @@
+html
+  head
+    title= title
+  body
+    p= 'this is the edit page'
+    fieldset
+      form(action='/files/' + file._id + '?_method=PUT', method='post')
+        input(name='title', type='text', value=file.title, required='')
+        input(name='type', type='text', value=file.type, required='')
+        input(type='submit', value='Update File')

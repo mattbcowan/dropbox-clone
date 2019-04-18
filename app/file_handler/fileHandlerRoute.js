@@ -47,13 +47,12 @@ router.post('/', (req, res) => {
 })
 
 // Find all Files
-// Retrieve all Notes
 router.get('/files', (req, res) => {
   FileHandler.find({}, (err, allFiles) => {
     if(err) {
       console.log(err);
     } else {
-      res.render('./fileHandler/view', {
+      res.render('fileHandler/view', {
         files: allFiles,
         title: 'My Files',
         message: 'My Files',
@@ -61,6 +60,27 @@ router.get('/files', (req, res) => {
     }
   });
 });
+
+// Retrieve a single Note with noteId
+router.get('/files/:id', (req, res) => {
+  FileHandler.findById(req.params.id).exec((err, foundFile) => {
+    if(err || !foundFile) {
+      console.log(err)
+      return res.redirect('/files');
+    }
+    res.render('fileHandler/show', {file: foundFile})
+  })
+})
+
+// Edit Note
+router.get('/files/:id/edit', (req, res) => {
+  FileHandler.findById(req.params.id, (err, foundFile) => {
+    if(err) {
+      console.log(err);
+    }
+    res.render('fileHandler/edit', {file: foundFile})
+  })
+})
 
 // Delete note
 router.delete('/files/:id', (req, res) => {
