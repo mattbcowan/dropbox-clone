@@ -82,6 +82,16 @@ router.get('/files/:id/edit', (req, res) => {
   })
 })
 
+// Update a File with ID
+router.put('/files/:id', (req, res) => {
+  FileHandler.findByIdAndUpdate(req.params.id, {$set: req.body}, (err, file) => {
+    if(err) {
+      console.log(err);
+    }
+    res.redirect('/upload/files')
+  })
+})
+
 // Delete note
 router.delete('/files/:id', (req, res) => {
   FileHandler.findByIdAndRemove(req.params.id, (err) => {
