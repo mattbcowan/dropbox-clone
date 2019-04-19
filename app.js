@@ -51,7 +51,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // Routes
 app.use('/notes', notesRoute);
-app.use('/upload', fileHandlerRoute);
+app.use('/files', fileHandlerRoute);
 
 app.get('/', (req, res) => res.render('index', { title: 'Dropbox Clone', message: 'This is the landing page.'}))
 
