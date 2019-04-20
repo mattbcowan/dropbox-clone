@@ -20,6 +20,7 @@ router.get("/", (req, res) => {
 
 // Create a new file upload
 router.post("/", (req, res) => {
+  // Parse the incoming data from req
   var form = new formidable.IncomingForm();
   form.parse(req);
 
@@ -32,20 +33,21 @@ router.post("/", (req, res) => {
     var title = file.name,
       type = file.type,
       size = file.size,
-      lastModifiedDate = file.lastModifiedDate,
-      newFile = {
-        title: title,
-        type: type,
-        size: size,
-        lastModifiedDate: lastModifiedDate
-      };
+      lastModifiedDate = file.lastModifiedDate;
+
+    var newFile = {
+      title: title,
+      type: type,
+      size: size,
+      lastModifiedDate: lastModifiedDate
+    };
 
     FileHandler.create(newFile, (err, newlyCreated) => {
       if (err) {
         console.log(err);
       } else {
         console.log(newlyCreated);
-        res.redirect("/upload");
+        res.redirect("/files");
       }
     });
   });
@@ -103,10 +105,12 @@ router.put("/:id", (req, res) => {
 
 // Delete note
 router.delete("/:id", (req, res) => {
-  FileHandler.findByIdAndRemove(req.params.id, err => {
+  const id = req.params.id;
+  FileHandler.findByIdAndRemove(id, err => {
     if (err) {
       console.log(err);
     }
+    //FileHandler.removeFile();
     res.redirect("/files");
   });
 });
