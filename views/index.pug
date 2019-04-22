@@ -3,6 +3,6 @@ html
     title= title
   body
     h1= message
-    form(action='/upload', enctype="multipart/form-data", method='POST')
+    form(action='/files', enctype="multipart/form-data", method='POST')
       input(type='file', name='upload', multiple='')
       input(type='submit', value='Upload')

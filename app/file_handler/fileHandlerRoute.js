@@ -2,7 +2,6 @@ const express = require("express"),
   router = express.Router(),
   formidable = require("formidable"),
   fileHandler = require("./fileHandlerController"),
-  Upload = require("../upload"),
   FileHandler = require("./fileHandlerModel");
 
 router.get("/", (req, res) => {
@@ -10,7 +9,7 @@ router.get("/", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render("fileHandler/index", {
+      res.render("fileHandler/view", {
         files: allFiles,
         title: "My Files",
         message: "My Files"
@@ -21,17 +20,37 @@ router.get("/", (req, res) => {
 
 // Create a new file upload
 router.post("/", (req, res) => {
-  Upload.upload(req);
-  res.redirect("/files");
-  //
-  // FileHandler.create(newFile, (err, newlyCreated) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     console.log(newlyCreated);
-  //     res.redirect("/files");
-  //   }
-  // });
+  // Parse the incoming data from req
+  var form = new formidable.IncomingForm();
+  form.parse(req);
+
+  // Begin file upload
+  form.on("fileBegin", (name, file) => {
+    file.path = __dirname + "/uploads/" + file.name;
+  });
+
+  form.on("file", (name, file) => {
+    var title = file.name,
+      type = file.type,
+      size = file.size,
+      lastModifiedDate = file.lastModifiedDate;
+
+    var newFile = {
+      title: title,
+      type: type,
+      size: size,
+      lastModifiedDate: lastModifiedDate
+    };
+
+    FileHandler.create(newFile, (err, newlyCreated) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(newlyCreated);
+        res.redirect("/files");
+      }
+    });
+  });
 });
 
 // Find all Files
@@ -41,7 +60,7 @@ router.get("/", (req, res) => {
       console.log(err);
     } else {
       res.render("fileHandler/view", {
-        files: allFiles,
+        file: allFiles,
         title: "My Files",
         message: "My Files"
       });
@@ -86,10 +105,12 @@ router.put("/:id", (req, res) => {
 
 // Delete note
 router.delete("/:id", (req, res) => {
-  FileHandler.findByIdAndRemove(req.params.id, err => {
+  const id = req.params.id;
+  FileHandler.findByIdAndRemove(id, err => {
     if (err) {
       console.log(err);
     }
+    //FileHandler.removeFile();
     res.redirect("/files");
   });
 });
