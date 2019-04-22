@@ -60,7 +60,7 @@ router.get("/", (req, res) => {
       console.log(err);
     } else {
       res.render("fileHandler/view", {
-        files: allFiles,
+        file: allFiles,
         title: "My Files",
         message: "My Files"
       });
@@ -98,7 +98,7 @@ router.put("/:id", (req, res) => {
       if (err) {
         console.log(err);
       }
-      res.redirect("/upload/files");
+      res.redirect("/files");
     }
   );
 });

@@ -6,5 +6,4 @@ html
     fieldset
       form(action='/upload/files/' + file._id + '?_method=PUT', method='post')
         input(name='title', type='text', value=file.title, required='')
-        input(name='type', type='text', value=file.type, required='')
         input(type='submit', value='Update File')
