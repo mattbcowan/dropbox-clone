@@ -1,5 +1,6 @@
 const express = require("express"),
   router = express.Router(),
+  fs = require("fs"),
   formidable = require("formidable"),
   fileHandler = require("./fileHandlerController"),
   FileHandler = require("./fileHandlerModel");
@@ -106,11 +107,23 @@ router.put("/:id", (req, res) => {
 // Delete note
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-  FileHandler.findByIdAndRemove(id, err => {
+  const files = __dirname + "/uploads/";
+
+  FileHandler.findByIdAndRemove(id, (err, foundFile) => {
     if (err) {
       console.log(err);
     }
-    //FileHandler.removeFile();
+
+    fs.unlink(files + foundFile.title, err => {
+      if (err) {
+        console.log(err);
+        res.redirect("/files");
+      }
+      
+      // If no error, file deleted
+      console.log("File deleted!");
+    });
+
     res.redirect("/files");
   });
 });

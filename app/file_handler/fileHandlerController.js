@@ -104,7 +104,7 @@ exports.update = (req, res) => {
 
 // Delete File
 exports.delete = (req, res) => {
-  Note.findByIdAndRemove(req.params._id)
+  FileHandler.findByIdAndRemove(req.params._id)
     .then(file => {
       if (!file) {
         return res.status(404).send({
@@ -126,7 +126,7 @@ exports.delete = (req, res) => {
 };
 
 exports.removeFile = (req, res) => {
-  fs.unlink("sample.txt", err => {
+  fs.unlink(req, err => {
     if (err) throw err;
     // If no error, file deleted
     console.log("File deleted!");
