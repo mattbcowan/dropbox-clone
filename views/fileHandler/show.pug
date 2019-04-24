@@ -7,5 +7,6 @@ html
     p= (file.size / 1000) + " kb"
     p File last modified on #{file.lastModifiedDate}.
     a(href='/files/' + file._id + '/edit') Edit
+    a(href='/files/' + file._id + '/download') Download
     form(action='/files/' + file._id + '?_method=DELETE', method='POST')
       input(type='submit', value='DELETE')

@@ -36,6 +36,8 @@ router.post("/", (req, res) => {
       size = file.size,
       lastModifiedDate = file.lastModifiedDate;
 
+    console.log(file);
+
     var newFile = {
       title: title,
       type: type,
@@ -80,6 +82,14 @@ router.get("/:id", (req, res) => {
   });
 });
 
+// Download Files
+router.get("/:id/download", (req, res) => {
+  FileHandler.findById(req.params.id, (err, foundFile) => {
+    const file = __dirname + "/uploads/" + foundFile.title;
+    res.download(file);
+  });
+});
+
 // Edit Note
 router.get("/:id/edit", (req, res) => {
   FileHandler.findById(req.params.id, (err, foundFile) => {
@@ -115,11 +125,12 @@ router.delete("/:id", (req, res) => {
     }
 
     fs.unlink(files + foundFile.title, err => {
-      if (err) {
+      if (!foundFile) {
+        res.redirect("/files");
+      } else if (err) {
         console.log(err);
         res.redirect("/files");
       }
-      
       // If no error, file deleted
       console.log("File deleted!");
     });
