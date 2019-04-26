@@ -8,8 +8,7 @@ const express = require("express"),
   morgan = require("morgan"),
   cookieParser = require("cookie-parser"),
   methodOverride = require("method-override"),
-  LocalStrategy = require("passport-local"),
-  User = require("./app/users/user"),
+  User = require("./app/users/userModel"),
   port = 3000;
 
 // Assigning mongoose promise library and connecting to DB
@@ -27,7 +26,7 @@ mongoose
     process.exit();
   });
 
-//require("./auth/passport")(passport); // pass passport for config
+require("./config/passport")(passport); // pass passport for config
 
 // set up express app
 app.use(morgan("dev")); // log every request to the console
@@ -54,10 +53,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 // Routes
 require("./app/routes")(app, passport);

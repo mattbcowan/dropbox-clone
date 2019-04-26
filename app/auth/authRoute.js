@@ -15,14 +15,21 @@ router.get("/signup", (req, res) => {
   res.render("auth/signup.pug", { message: req.flash("signupMessage") });
 });
 
-//router.post("/signup", "do all passport stuff here");
+router.post(
+  "/signup",
+  passport.authenticate("local-signup", {
+    successRedirect: "/auth/profile", // redirect to secure Profile
+    failureRedirect: "/auth/signup", //redirect back to signup page
+    failureFlash: true // allow flash messages
+  })
+);
 
 // Profile
-// router.get("/profile", isLoggedIn, (req, res) => {
-//   res.render("profile.pug", {
-//     user: req.user // get the user out of session and pass to template
-//   });
-// });
+router.get("auth/profile", isLoggedIn, (req, res) => {
+  res.render("profile.pug", {
+    user: req.user // get the user out of session and pass to template
+  });
+});
 
 // Log Out
 router.get("/logout", (req, res) => {
@@ -31,12 +38,12 @@ router.get("/logout", (req, res) => {
 });
 
 // Route Middleware
-isLoggedIn = (req, res, next) => {
+function isLoggedIn(req, res, next) {
   // if user is authenticated
   if (req.isAuthenticated()) return next();
 
   // if they aren't authenticated
   res.redirect("/");
-};
+}
 
 module.exports = router;

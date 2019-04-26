@@ -1,7 +1,7 @@
 extends ../components/header.pug
 
 block content
-  h1= "Welcome to the Login Page"
+  h1= "Welcome to the Sign Up Page"
   
   - 
     if (message.length > 0) {
@@ -9,12 +9,13 @@ block content
         message= message
       }
   
-  form(action="/login" method="POST")
+  form(action="/auth/signup" method="POST")
     div
       label= "Email"
       input(type="text" name="email")
     div
       label= "Password"
-      input(type="password" name="password")
-      
-    button(type="submit") Login
+      input(type="password" name="password")  
+    button(type="submit") Sign Up
+  
+  p Already have an account? #[a(href="/auth/login") Login]
