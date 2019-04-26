@@ -1,0 +1,13 @@
+extends ../components/header.pug
+
+block content
+  h1= "Welcome to the Login Page"
+  form(action="/login" method="POST")
+    div
+      label= "Email"
+      input(type="text" name="email")
+    div
+      label= "Password"
+      input(type="password" name="password")
+      
+    button(type="submit") Login
