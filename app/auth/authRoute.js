@@ -7,7 +7,15 @@ router.get("/login", (req, res) => {
   res.render("auth/login.pug", { message: req.flash("loginMessage") });
 });
 
-//router.post("/login", "do passport stuff here");
+// Log in
+router.post(
+  "/login",
+  passport.authenticate("local-login", {
+    successRedirect: "/auth/profile",
+    failureRedirect: "/auth/login",
+    failureFlash: true
+  })
+);
 
 // Sign Up
 router.get("/signup", (req, res) => {
@@ -25,8 +33,8 @@ router.post(
 );
 
 // Profile
-router.get("auth/profile", isLoggedIn, (req, res) => {
-  res.render("profile.pug", {
+router.get("/profile", isLoggedIn, (req, res) => {
+  res.render("auth/profile.pug", {
     user: req.user // get the user out of session and pass to template
   });
 });
