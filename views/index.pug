@@ -2,5 +2,10 @@ extends ./components/header.pug
 
 block content
   form(action='/files', enctype="multipart/form-data", method='POST')
-    input(type='file', name='upload', multiple='')
-    input(type='submit', value='Upload')
+    div(class="input-group")
+      div(class="input-group-prepend")
+        span(class="input-group-text", id="chooseFileAddon") Upload
+      div(class="custom-file")
+        input(type='file', class="custom-file-input", name='upload', multiple='', id="chooseFile", aria-describedby="chooseFileAddon")
+        label(class="custom-file-label", for="chooseFile", id="chooseFileLabel") Choose File
+    input(type='submit', value='Upload', class="btn btn-primary")
